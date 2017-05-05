@@ -1,9 +1,13 @@
-# from random_bitmap import get_random_float
+# Task2: A white noise WAV sound sample of 3 seconds (70 points)
 import struct
 import wave
 import requests
 
 def get_randint(size, min_bound, max_bound):
+	'''
+	This function gets a list of random int numbers between (min_bound, max_bound)
+	Because of random.org limitation, we get 10,000 numbers in each request
+	'''
 	nums = []
 	for i in range(size/10000 + 1):
 		count = min(size, (i+1)*10000) - i*10000
@@ -11,7 +15,7 @@ def get_randint(size, min_bound, max_bound):
 		nums.extend([float(f) for f in r.text.split()])
 	return nums
 
-NOISE_LEN = 132300 # 3 seconds
+NOISE_LEN = 44100 * 3 	# count of random numbers to generate 3-second wav file
 MIN_BOUND = -32767
 MAX_BOUND = 32767
 rand_noise = wave.open('random.wav', 'w')
